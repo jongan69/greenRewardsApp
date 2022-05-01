@@ -5,10 +5,9 @@ import {
 } from '@react-navigation/drawer';
 import * as React from 'react';
 import { View, Text, TouchableOpacity, ScrollViewProps, ColorSchemeName } from 'react-native';
-// import GalleryScreen from '../screens/GalleryScreen';
 import WalletScreen from '../screens/WalletScreen';
 import TransferScreen from '../screens/TransferScreen';
-import { DrawerParamList, HomeParamList, GalleryParamList, WalletParamList, TransferParamList } from '../types';
+import { DrawerParamList, HomeParamList, WalletParamList, TransferParamList } from '../types';
 import HomeScreen from '../screens/HomeScreen';
 import Constants from "expo-constants"
 import { DrawerNavigationHelpers, DrawerDescriptorMap } from '@react-navigation/drawer/lib/typescript/src/types';
@@ -23,7 +22,7 @@ const CustomDrawer = (props: Key | (JSX.IntrinsicAttributes & ScrollViewProps & 
   console.log('APP VERSION NUMBER: ', version)
   return (
     <View style={{ flex: 1 }}>
-      <DrawerContentScrollView {...props}>
+      <DrawerContentScrollView {...props} >
         <View
           style={{
             flexDirection: 'row',
@@ -60,15 +59,12 @@ const CustomDrawer = (props: Key | (JSX.IntrinsicAttributes & ScrollViewProps & 
 export default function DrawerNavigator() {
   return (
     <Drawer.Navigator
+      screenOptions={{headerShown: false}}
       drawerContent={props => <CustomDrawer {...props} />}
     >
       <Drawer.Screen
         name="Home"
         component={HomeNavigator} />
-
-      {/* <Drawer.Screen
-        name="Gallery"
-        component={GalleryNavigator} /> */}
 
       <Drawer.Screen
         name="Wallet"
@@ -95,19 +91,6 @@ function HomeNavigator() {
   )
 }
 
-// const GalleryStack = createStackNavigator<GalleryParamList>();
-
-// function GalleryNavigator() {
-//   return (
-//     <GalleryStack.Navigator>
-//       <GalleryStack.Screen
-//         name="Gallery"
-//         component={GalleryScreen}
-//       />
-//     </GalleryStack.Navigator>
-//   )
-// }
-
 const WalletStack = createStackNavigator<WalletParamList>();
 
 function WalletNavigator() {
@@ -116,6 +99,7 @@ function WalletNavigator() {
       <WalletStack.Screen
         name="Wallet"
         component={WalletScreen}
+        options={{ headerShadowVisible: false}}
       />
     </WalletStack.Navigator>
   )
@@ -129,6 +113,7 @@ function TransferNavigator() {
       <TransferStack.Screen
         name="Transfer"
         component={TransferScreen}
+        options={{ headerShadowVisible: false}}
       />
     </TransferStack.Navigator>
   )

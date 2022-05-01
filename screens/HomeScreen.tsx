@@ -84,7 +84,38 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={tw.style("flex-1")}>
-      <Text> Welcome to Green Rewards </Text>
+      <View style={{
+        paddingTop: '50%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <Text style={tw.style("center")}> Welcome to Green Rewards </Text>
+
+        {connector.accounts[0]
+          ?
+          <>
+            <Text style={tw.style("center")}> Current Wallet: </Text>
+            <Text style={tw.style("center")}> {truncate(connector.accounts[0], 10)} </Text>
+            <Text style={{ padding: 20 }}> To get started, scan an image for recycling. </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Scan")}
+            >
+              <FontAwesome
+                style={{ borderWidth: 10, borderColor: 'black', borderRadius: 40 }}
+                name="camera-retro" size={34} color="orange" />
+            </TouchableOpacity>
+          </>
+          :
+          <>
+           <Text style={{ padding: 20 }}> To get started, Sign in to your web3 wallet. </Text>
+           <WalletConnectButton />
+          </>
+        }
+
+
+
+      </View>
     </SafeAreaView>
   );
 };

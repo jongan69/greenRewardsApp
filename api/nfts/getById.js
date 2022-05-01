@@ -1,6 +1,6 @@
 const getById = async () => {
   const response = await fetch(
-    `mobilenft-api-kiosk-l3uje2nyv-btmcompliance.vercel.app/api/shared/nfts/nftList`,
+    `https://jsonplaceholder.typicode.com/todos/1`,
     {
       method: "GET",
     }

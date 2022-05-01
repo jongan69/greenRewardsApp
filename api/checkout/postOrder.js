@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 const postOrder = async (completeOrder) => {
 
-  const url = 'https://mobilenft-admin-app.vercel.app/api/order'
+  const url = 'https://jsonplaceholder.typicode.com/todos/1'
   const options = {
     method: 'POST',
     body: JSON.stringify(completeOrder),

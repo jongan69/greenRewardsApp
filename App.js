@@ -1,3 +1,5 @@
+import "./global";
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import WalletConnectProvider from "@walletconnect/react-native-dapp";
@@ -13,7 +15,7 @@ import Navigation from './navigation';
 
 
 
-const SCHEME_FROM_APP_JSON = 'greenRewardsApp'
+const SCHEME_FROM_APP_JSON = 'greenrewardsapp'
 
 export default function App() {
   const queryClient = new QueryClient();

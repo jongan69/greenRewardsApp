@@ -8,22 +8,17 @@ export default {
         screens: {
           Home: {
             screens: {
-              Home: 'home'
-            }
-          },
-          Gallery: {
-            screens: {
-              GalleryScreen: 'gallery'
+              Home: 'Home'
             }
           },
           Wallet: {
             screens: {
-              WalletScreen: 'wallet'
+              WalletScreen: 'Wallet'
             }
           },
           Transfer: {
             screens: {
-              TransferScreen: 'transfer'
+              TransferScreen: 'Transfer'
             }
           }
         },

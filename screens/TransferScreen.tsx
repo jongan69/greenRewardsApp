@@ -26,8 +26,8 @@ export default function TransferScreen() {
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
-          We store any NFT's bought until Users request a transfer for a small fee.
-          To get started, login with the wallet used and make sure to have your Email, Phone Number, and Name on File.
+          We store tokens until Users request a transfer for a small fee.
+          To get started, login with the wallet used to recycle.
         </Text>
         :
         <Text

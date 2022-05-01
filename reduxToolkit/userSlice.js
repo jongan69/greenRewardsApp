@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stringify } from "postcss";
 
 const initialState = {
-  name: "",
-  email: "",
-  phone: "",
-  addresses: [],
+  address: "",
+  images: [],
 };
 
 const userSlice = createSlice({
@@ -14,14 +11,12 @@ const userSlice = createSlice({
 
   reducers: {
     logOut: () => initialState,
-    logIn: (state, { payload }) => {
+    mint: (state, { payload }) => {
       if (payload) {
-        console.log('USER NAME PAYLOAD: ', payload.name)
+        console.log('USER Address PAYLOAD: ', payload.address)
         state = {
-          name: payload.name,
-          email: payload.email,
-          phone: payload.phone,
-          addresses: [...payload.address || null]
+          addresses: payload.address,
+          imagees: [...payload.image || null]
         }
         return state
       }
@@ -29,6 +24,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logOut, logIn } = userSlice.actions;
+export const { logOut, mint } = userSlice.actions;
 export const userSelector = (state) => state.user
 export default userSlice.reducer;

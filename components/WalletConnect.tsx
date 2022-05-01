@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
-import { useThemeColor } from "./Themed";
+// import { useThemeColor } from "./Themed";
 // import SVGImage from 'react-native-svg-image';
 // let defaultAvatar = 'https://avatars.dicebear.com/api/bottts/hi.svg?scale=10&colorful=true'
 
@@ -41,17 +41,12 @@ export default function WalletConnectButton() {
         </>
       ) : (
         <>
-          
-          <View style={{ width: 40, height: 40  }}>
-          {/* <SVGImage
-          showWebviewLoader={false}
-          style={{ borderWidth: 2, justifyContent: 'center', alignItems: 'center', borderRadius: '40' }}
-          source={{ uri: `https://avatars.dicebear.com/api/identicon/${connector.accounts[0]}.svg?translateX=${-42}&translateY=${-42}&scale=${8}` }}
-        /> */}
-            </View>
+          <View style={{ width: 40, height: 40 }}>
             <Text style={{ color: 'darkgreen', borderLeftWidth: 0.3, borderColor: 'black' }}>{shortenAddress(connector.accounts[0])}</Text>
-          <Button onPress={killSession} label="Log out" />
-          
+            <Button onPress={killSession} label="Log out" />
+          </View>
+
+
         </>
       )
       }
