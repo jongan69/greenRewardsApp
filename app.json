@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "greenRewardsApp",
-    "slug": "greenRewardsApp",
+    "name": "garbagegooberrewards",
+    "slug": "garbagegooberrewards",
     "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "greenrewardsapp",
+    "scheme": "garbagegooberrewards",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
