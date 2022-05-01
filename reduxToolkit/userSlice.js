@@ -15,8 +15,8 @@ const userSlice = createSlice({
       if (payload) {
         console.log('USER Address PAYLOAD: ', payload.address)
         state = {
-          addresses: payload.address,
-          imagees: [...payload.image || null]
+          address: payload.address,
+          images: [...payload.image]
         }
         return state
       }

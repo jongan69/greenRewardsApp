@@ -1,7 +1,7 @@
 import "./global";
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, LogBox } from 'react-native';
 import WalletConnectProvider from "@walletconnect/react-native-dapp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TailwindProvider } from 'tailwind-rn';
@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import utilities from './tailwind.json';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-
+LogBox.ignoreAllLogs()
 
 
 const SCHEME_FROM_APP_JSON = 'greenrewardsapp'

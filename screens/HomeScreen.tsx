@@ -5,7 +5,6 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import React, { useRef, useEffect, useState } from "react";
 import {
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -45,18 +44,12 @@ const HomeScreen = () => {
 
   });
 
-  const dispatch = useDispatch()
-  const swipeRef = useRef(null);
-
   // Indicates the amount of items in basket
   const nfts = useSelector(selectItem)
   const ignore = useSelector(ignoreList)
+
   // Grabs the NFTS to display.
   const { data: nftCard, isLoading } = useQuery("cards", async () => await getList());
-
-  // let random = Math.floor(Math.random() * nftCard?.length);
-  // console.log('Random index is ', random)
-  // console.log('nfts length is ', nftCard?.length)
   const connector = useWalletConnect();
 
   if (isLoading)
@@ -90,13 +83,13 @@ const HomeScreen = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <Text style={tw.style("center")}> Welcome to Green Rewards </Text>
+        <Text style={tw.style('center')}> Welcome to Green Rewards </Text>
 
         {connector.accounts[0]
           ?
           <>
-            <Text style={tw.style("center")}> Current Wallet: </Text>
-            <Text style={tw.style("center")}> {truncate(connector.accounts[0], 10)} </Text>
+            <Text style={tw.style('center')}> Current Wallet: </Text>
+            <Text style={tw.style('center')}> {truncate(connector.accounts[0], 10)} </Text>
             <Text style={{ padding: 20 }}> To get started, scan an image for recycling. </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("Scan")}

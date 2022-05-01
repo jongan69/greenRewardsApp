@@ -40,7 +40,6 @@ export default function ScannerScreen() {
 
 
 
-  const [aiData, setAiData] = useState(null)
 
   const clarifai = new Clarifai.App({
     apiKey: CLARIFAY_KEY
@@ -70,12 +69,11 @@ export default function ScannerScreen() {
     );
   };
 
-  const updateUserProfile = (address, image) => {
-    const userData = { 'address': address, 'images': [image || null] };
+  const updateUserProfile = async (address, image) => {
+    const userData = { 'address': address, 'image': [image] };
     console.log('ALL THE MINT DATAS: ', userData)
     dispatch(mint(userData))
     console.log('Data in store: ', user)
-    navigation.navigate('Confirm')
   }
 
 
@@ -120,8 +118,7 @@ export default function ScannerScreen() {
                   console.log('NFT STORAGE RESPONSE:', IPFS)
                   console.log('IPFS URL:', `ipfs://${IPFS.value.cid}`)
                   Alert.alert('Image IPFS CID: ', IPFS.value.cid);
-
-                  if (IPFS.value.cid) {
+                  if (IPFS.value.cid && cloudData.secure_url) {
                     process.nextTick = setImmediate // RN polyfill
                     // Using dweb.link for AI to read faster, NFT still minted with ipfs:// url
                     clarifai.models.predict(Clarifai.GENERAL_MODEL, cloudData.secure_url)
@@ -132,7 +129,6 @@ export default function ScannerScreen() {
                             if (prediction.name) {
                               // All Predictions should be logged
                               console.log('AI Reading: ', prediction.name)
-                              setAiData(prediction.name)
                               // THIS API IS OUT OF MONEY, THE MINT WILL FAIL ON BACKEND
                               // EDIT, API needs to have higher gas limit
                               fetch('https://thirdweb-nextjs-minting-api.vercel.app/api/mint', {
@@ -160,10 +156,10 @@ export default function ScannerScreen() {
                                   }
                                 }),
                               })
-                              setlastMint(true)
                               updateUserProfile(connector.accounts[0], `ipfs://${IPFS.value.cid}`)
-                              Alert.alert(`AI found ${prediction.name}, minted NFT!`);
+                              setlastMint(true)
                               navigation.navigate('Confirm')
+                              Alert.alert(`AI found ${prediction.name}, minted NFT!`);
                             } else {
                               // Anything else gets output as alert
                               Alert.alert('Bad NFT: ', prediction.name);
@@ -172,6 +168,7 @@ export default function ScannerScreen() {
                           }
                         }
                       })
+
                   }
                 })
                 .catch(err => {

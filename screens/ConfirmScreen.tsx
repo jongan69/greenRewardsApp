@@ -8,13 +8,15 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
-  Alert
+  Alert,
+  TouchableWithoutFeedback
 } from "react-native";
 import tw from 'twrnc';
 import Header from "../components/Header";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector, mint } from "../reduxToolkit/userSlice";
+import { truncate } from "../lib/truncate";
 
 
 export default function ConfirmScreen() {
@@ -22,17 +24,11 @@ export default function ConfirmScreen() {
   const dispatch = useDispatch()
   const user = useSelector(userSelector);
   const connector = useWalletConnect();
-  const [address, setAddress] = useState(connector?.accounts[0]);
+  const address = connector?.accounts[0];
   const [image, setImage] = useState(user.images[0]);
-  const [weight, setWeight] = useState();
-  const incomplete = !address || !image;
+  const [weight, setWeight] = useState('');
+  const incomplete = !address || !image || !weight;
 
-  const shortenAddress = (address) => {
-    return `${address.slice(0, 6)}...${address.slice(
-      address.length - 4,
-      address.length
-    )}`
-  };
 
   const updateUserProfile = (address, image) => {
     const userData = { 'address': address, 'images': [image || null] };
@@ -42,12 +38,19 @@ export default function ConfirmScreen() {
     return
   }
 
+  const HideKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
+
   return (
-    <SafeAreaView style={tw.style('flex-1')} onPress={Keyboard.dismiss}>
-      <View style={tw.style("flex-1 pt-1")}>
+    <HideKeyboard>
+    <SafeAreaView style={tw.style('flex-1')} onPress={() => {Keyboard.dismiss}}>
+      {/* <View style={tw.style("flex-1 pt-1")}> */}
         <Header title="Confirm" />
         <View style={tw.style("flex-1 items-center pt-0")}>
-          <Text style={tw.style("text-center p-4 font-black text-3xl text-red-400")}>
+          <Text style={tw.style("text-center p-4 font-black text-3xl text-green-400")}>
             Green Rewards
           </Text>
           {connector?.accounts[0] &&
@@ -56,24 +59,15 @@ export default function ConfirmScreen() {
                 Collect Your Rewards!
               </Text>
               <Text style={[tw.style("text-center p-2 font-bold text-green-500"),{ margin: 30}]}>
-              Step 1. Current Wallet {shortenAddress(connector?.accounts[0])}
+              Current Wallet: {truncate(connector?.accounts[0], 10)}
               </Text>
-
-              <Text style={tw.style("text-center p-4 font-bold text-blue-500")}>
-                Step 2. Image of Recyclable Material
+              <Text style={tw.style("text-center p-4 font-bold text-black-500")}>
+                Image of Recyclable Material
               </Text>
-              <Text style={[tw.style("text-center p-2 font-bold text-green-500"),{ margin: 30}]}>
-                IPFS: {image}
+              <Text style={[tw.style("text-center p-1 font-bold text-green-500"),{ margin: 20, fontSize: 10}]}>
+                {truncate(image, 100)}
               </Text>
-
-              {/* <TextInput
-                value={image}
-                onChangeText={setImage}
-                style={tw.style("text-center text-xl pb-2")}
-                placeholder="Enter your Email"
-              /> */}
-
-              <Text style={tw.style("text-center p-4 font-bold text-blue-500")}>
+              <Text style={tw.style("text-center p-4 font-bold text-black-500")}>
                 Step 3. Weight
               </Text>
               <TextInput
@@ -85,14 +79,13 @@ export default function ConfirmScreen() {
                 maxLength={12}
                 onEndEditing={Keyboard.dismiss}
               />
-              
-              <Text style={tw.style("text-center p-2 font-bold text-blue-500")}>
-                Step 4: Confirm & Sign
-              </Text>
-
-              
+                            
               {incomplete ? null 
               :
+              <>
+              <Text style={[tw.style("text-center p-2 font-bold text-black-500"),{ paddingTop: 80}]}>
+                Step 4: Confirm & Sign
+              </Text>
               <TouchableOpacity
               onPress={() => {
                 Alert.alert('Success!', 'Great job saving the earth!');
@@ -108,12 +101,14 @@ export default function ConfirmScreen() {
                 Collect Rewards
               </Text>
             </TouchableOpacity>
+            </>
               }
             </>
           }
         </View>
-      </View>
+      {/* </View> */}
     </SafeAreaView>
+    </HideKeyboard>
   );
 }
 
